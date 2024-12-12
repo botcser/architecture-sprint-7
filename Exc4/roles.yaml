@@ -1,0 +1,58 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-devel-y
+rules:
+- apiGroups: [""]
+  resources: ["deployments", "replicasets", "pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+  
+kind: ClusterRole
+metadata:
+  name: cluster-smart-z
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+
+kind: ClusterRole
+metadata:
+  name: cluster-manager-x
+rules:
+- apiGroups: [""]
+  resources: ["pods"]       # хз нужно ли ему для администрирования "deployments" и "replicasets"
+  verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+  
+kind: Role
+metadata:
+  namespace: anal
+  name: anal-bi
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+
+kind: Role
+metadata:
+  namespace: finance-claster-1
+  name: finance-claster-1
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+ 
+ 
+kind: Role
+metadata:
+  namespace: finance-claster-1
+  name: finance-claster-1-big
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch", "create", "update", "patch"] 
+  
+# еще для resources: ["secrets"] следует создать, но нужно уточнить у заказчика и команды, кто и как

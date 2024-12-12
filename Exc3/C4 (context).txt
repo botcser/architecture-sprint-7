@@ -1,0 +1,40 @@
+@startuml
+!include <C4/C4_Container>
+!include <C4/C4_Deployment>
+!include <C4/C4_Component>
+!include <archimate/Archimate>
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/Archimate-PlantUML/master/Archimate.puml
+
+
+AddRelTag("dashed", $lineStyle = DashedLine())
+
+Person(Admin, "Admin", "WTF")
+Person_Ext(UserMobile, "Current User Mobile System", "давит кнопки, как чучундра")
+System(SmartVideoDoor, "Smart Video Door", "управление дверью, распознавание лица, \n связь с CRM, СУКД")
+System(SmartBigStick, "Smart Big Stick", "связь с CRM, СУКД, управление палкой, \n распознование автономера")
+
+System_Ext(CRM, "CRM", "идентификация, аутентификация, \n авторизация")
+System_Ext(Door, "Door", "управление дверью, звонок/видео в квартиру, \n изображение лица")
+System_Ext(BigStick, "Big Stick", "палка вверх/вниз, \n изображение автономера")
+
+Rel(UserMobile, SmartBigStick, "[Открыть, Init]", $tags="dashed")
+Rel(UserMobile, SmartVideoDoor, "[Открыть, Init]", $tags="dashed")
+
+Rel(Door, SmartVideoDoor, "[Изображение/Видео, Код]", $tags="dashed")
+
+Rel(SmartVideoDoor, UserMobile, "[Видео]", $tags="dashed")
+Rel(SmartVideoDoor, Door, "[Открыть]", $tags="dashed")
+
+Rel(CRM, SmartVideoDoor, "[Данные юзвера]", $tags="dashed")
+Rel(CRM, SmartBigStick, "[Данные юзвера]", $tags="dashed")
+
+Rel(SmartVideoDoor, CRM, "[Идентификаторы]", $tags="dashed")
+
+Rel(SmartBigStick, CRM, "[Идентификаторы]", $tags="dashed")
+Rel(SmartBigStick, BigStick, "[Открыть]", $tags="dashed")
+
+Rel(BigStick, SmartBigStick, "[Изображение]", $tags="dashed")
+
+Rel(Admin, SmartVideoDoor, "[Открыть, Init]", $tags="dashed")
+Rel(Admin, SmartBigStick, "[Открыть, Init]", $tags="dashed")
+@enduml
