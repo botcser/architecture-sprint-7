@@ -1,0 +1,127 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: admin-back-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: admin-back-end-api
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: admin-front-end
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns	  
+    ports:
+      - protocol: UDP
+        port: 53
+  - to:
+    - podSelector:
+        matchLabels:
+          app: admin-front-end
+
+kind: NetworkPolicy
+metadata:
+  name: admin-front-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: admin-front-end
+  policyTypes:
+  - Egress
+  egress:
+    - to:
+        matchLabels:
+          app: admin-back-end-api
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns	  
+      ports:
+        - protocol: UDP
+          port: 53          
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: admin-front-end       
+
+
+kind: NetworkPolicy
+metadata:
+  name: back-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: back-end-api
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: front-end
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns	  
+    ports:
+      - protocol: UDP
+        port: 53
+  - to:
+    - podSelector:
+        matchLabels:
+          app: front-end
+
+kind: NetworkPolicy
+metadata:
+  name: front-policy
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: front-end
+  policyTypes:
+  - Egress
+  egress:
+    - to:
+        matchLabels:
+          app: back-end-api
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+        podSelector:
+          matchLabels:
+            k8s-app: kube-dns	  
+      ports:
+        - protocol: UDP
+          port: 53          
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: front-end              

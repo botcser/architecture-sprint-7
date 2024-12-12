@@ -1,0 +1,81 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-devel-y
+subjects:
+- kind: Group
+  name: cluster-devel-y
+  namespace: devel-claster-y
+roleRef:
+  kind: ClusterRole
+  name: cluster-devel-y
+  apiGroup: rbac.authorization.k8s.io
+
+
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-smart-z
+subjects:
+- kind: Group
+  name: cluster-smart-z
+  namespace: smart-cluster-z
+roleRef:
+  kind: ClusterRole
+  name: cluster-smart-z
+  apiGroup: rbac.authorization.k8s.io
+
+
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-manager-x
+subjects:
+- kind: Group
+  name: cluster-manager-x
+  namespace: manager-cluster-x
+roleRef:
+  kind: ClusterRole
+  name: cluster-manager-x
+  apiGroup: rbac.authorization.k8s.io
+
+
+kind: RoleBinding
+metadata:
+  name: anal-bi
+  namespace: anal
+subjects:
+- kind: Group
+  name: anal-bi
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: anal-bi
+  apiGroup: rbac.authorization.k8s.io
+
+
+kind: RoleBinding
+metadata:
+  name: finance
+  namespace: finance-claster-1
+subjects:
+- kind: Group
+  name: finance-claster-1
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: finance-claster-1
+  apiGroup: rbac.authorization.k8s.io
+  
+  
+kind: RoleBinding
+metadata:
+  name: finance-big
+  namespace: finance-claster-1
+subjects:
+- kind: Group
+  name: finance-claster-1-big
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: finance-claster-1-big
+  apiGroup: rbac.authorization.k8s.io
+  
